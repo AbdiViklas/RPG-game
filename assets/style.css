@@ -8,3 +8,11 @@ body {
   background: #000 url(images/doctor-who-hd-wallpaper.jpg) no-repeat right bottom;
 	min-height: 100vh;
 }
+
+.character {
+	min-height: 100px; 
+	/* check out what size actually comes of these two */
+	max-height: 20vh;
+	border: 3px solid white;
+	border-radius: 10px;
+}
