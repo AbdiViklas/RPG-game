@@ -10,9 +10,13 @@ body {
 }
 
 .character {
+	display: inline-block;
+	width: 100px;
 	min-height: 100px; 
 	/* check out what size actually comes of these two */
 	max-height: 20vh;
-	border: 3px solid white;
+	background-color: white;
+	/*border: 3px solid white;*/
 	border-radius: 10px;
+	box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.5);
 }
