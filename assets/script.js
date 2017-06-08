@@ -2,8 +2,9 @@
 var dr10 = {
   name: "the Tenth Doctor",
   maxHealth: 80,
-  health: 80,
+  currentHealth: 80,
   baseAttack: 5,
+  currentAttack: 5,
   attacks: [
     "sonic screwdriver",
     "Plimsolls", //check sp
@@ -19,8 +20,9 @@ var dr10 = {
 var dr11 = {
   name: "the Eleventh Doctor",
   maxHealth: 90,
-  health: 90,
+  currentHealth: 90,
   baseAttack: 7,
+  currentAttack: 7,
   attacks: [
     "sonic screwdriver",
     "fez"
@@ -35,8 +37,9 @@ var dr11 = {
 var dalek = {
   name: "a Dalek",
   maxHealth: 30,
-  health: 30,
+  currentHealth: 30,
   baseAttack: 10,
+  currentAttack: 10,
   attacks: [
     "scream",
     "plunger",
@@ -51,8 +54,9 @@ var dalek = {
 var cyberman = {
   name: "a Cyberman",
   maxHealth: 50,
-  health: 50,
+  currentHealth: 50,
   baseAttack: 8,
+  currentAttack: 8,
   attacks: [
     "wrist missiles",
     "fly"
@@ -65,8 +69,9 @@ var cyberman = {
 var river = {
   name: "River Song",
   maxHealth: 40,
-  health: 40,
+  currentHealth: 40,
   baseAttack: 5,
+  currentAttack: 5,
   attacks: [
     "notebook",
     "sonic screwdriver"
@@ -79,8 +84,9 @@ var river = {
 var amy = {
   name: "Amy Pond",
   maxHealth: 60,
-  health: 6.,
+  currentHealth: 6.,
   baseAttack: 7,
+  currentAttack: 7,
   attacks: [
     "wait",
     "tell off"
@@ -90,10 +96,15 @@ var amy = {
   ]
 }
 
+// OTHER VARIABLES
+
 // play starts when user chooses a character (by clicking)
 // start with a tutorial-style modal instructing that
 var userChar;
 var opponent;
+var winCounter = 0;
+
+// FUNCTIONS
 
 function chooseChar() {
   $(".character").click(function() {
@@ -116,13 +127,16 @@ function loseGame() {
   reset();
 }
 
+// How do I determine win? Do I, at the start, push opponents to an array, delete them one by one, and determine win when the array .length === 0?
+// Or simply hard-code the number of antagonists (5), keep track of defeats with a counter, and determine win when counter === 5?
+
 function winGame() {
   // inform user of win
   reset();
 }
 
 function reset() {
-  // reset .health amounts to .maxHealth
+  // reset .currentHealth amounts to .maxHealth
   // reset protagonist character attack to original level
   // --or better yet "dismount" character
   // set userChar to undefined?
@@ -136,7 +150,17 @@ $("#fight").click(function() {
     alert("First you must choose a character. \nClick on any character to play as him or her.");
   } else if (!opponent) {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
-  } else if (userChar.health < 1) {
+  } else if (userChar.currentHealth < 1) {
     loseGame();
+  } else if (opponent.currentHealth < 1) {
+    winCounter++;
+    // "remove" opponent from the DOM--hide? or actually delete?
+    if (winCounter === 5) {
+      winGame();
+    }
+  } else {
+    userChar.currentHealth -= opponent.baseAttack;
+    opponent.currentHealth -= userChar.currentAttack;
+    // popover speech balloons with random phrase for both
   }
 })
