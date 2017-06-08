@@ -2,6 +2,7 @@
 var dr10 = {
   name: "the Tenth Doctor",
   maxHealth: 80,
+  health: 80,
   baseAttack: 5,
   attacks: [
     "sonic screwdriver",
@@ -18,6 +19,7 @@ var dr10 = {
 var dr11 = {
   name: "the Eleventh Doctor",
   maxHealth: 90,
+  health: 90,
   baseAttack: 7,
   attacks: [
     "sonic screwdriver",
@@ -33,6 +35,7 @@ var dr11 = {
 var dalek = {
   name: "a Dalek",
   maxHealth: 30,
+  health: 30,
   baseAttack: 10,
   attacks: [
     "scream",
@@ -48,6 +51,7 @@ var dalek = {
 var cyberman = {
   name: "a Cyberman",
   maxHealth: 50,
+  health: 50,
   baseAttack: 8,
   attacks: [
     "wrist missiles",
@@ -61,6 +65,7 @@ var cyberman = {
 var river = {
   name: "River Song",
   maxHealth: 40,
+  health: 40,
   baseAttack: 5,
   attacks: [
     "notebook",
@@ -74,6 +79,7 @@ var river = {
 var amy = {
   name: "Amy Pond",
   maxHealth: 60,
+  health: 6.,
   baseAttack: 7,
   attacks: [
     "wait",
@@ -87,11 +93,30 @@ var amy = {
 // play starts when user chooses a character (by clicking)
 // start with a tutorial-style modal instructing that
 var userChar;
+var opponent;
 
 function chooseChar() {
   $(".character").click(function() {
     userChar=$(this).id();
-  })
+  });
+  // unbind?
 }
 
 // the challenge: can I un-bind an event listener? because I don't want to always be listening on every .character click, and calling the function
+
+function chooseOpponent() {
+  $(".character").click(function() {
+    opponent=$(this).id();
+  });
+  // unbind?
+}
+
+$("#fight").click(function() {
+  if (!userChar) {
+    alert("First you must choose a character. \nClick on any character to play as him or her.");
+  } else if (!opponent) {
+    alert("First you must choose an opponent. \nClick on any character to fight him or her.");
+  } else if (userChar.) {
+    userChar.
+  }
+})
