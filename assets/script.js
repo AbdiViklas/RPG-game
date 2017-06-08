@@ -88,6 +88,10 @@ var amy = {
 // start with a tutorial-style modal instructing that
 var userChar;
 
-function chooseChar(params) {
-  
+function chooseChar() {
+  $(".character").click(function() {
+    userChar=$(this).id();
+  })
 }
+
+// the challenge: can I un-bind an event listener? because I don't want to always be listening on every .character click, and calling the function
