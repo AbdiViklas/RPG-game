@@ -111,12 +111,32 @@ function chooseOpponent() {
   // unbind?
 }
 
+function loseGame() {
+  // inform user of loss
+  reset();
+}
+
+function winGame() {
+  // inform user of win
+  reset();
+}
+
+function reset() {
+  // reset .health amounts to .maxHealth
+  // reset protagonist character attack to original level
+  // --or better yet "dismount" character
+  // set userChar to undefined?
+  // can all these changes to character objects be accomplished by
+  // keeping the objects in another file, unmutated, "copy" them into this file,
+  // mutate them, and then "reload" the originals?
+}
+
 $("#fight").click(function() {
   if (!userChar) {
     alert("First you must choose a character. \nClick on any character to play as him or her.");
   } else if (!opponent) {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
-  } else if (userChar.) {
-    userChar.
+  } else if (userChar.health < 1) {
+    loseGame();
   }
 })
