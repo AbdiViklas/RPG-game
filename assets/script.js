@@ -109,6 +109,7 @@ var winCounter = 0;
 function chooseChar() {
   $(".character").click(function() {
     userChar=$(this).id();
+    // move to #fight-container
   });
   // unbind?
 }
@@ -118,6 +119,7 @@ function chooseChar() {
 function chooseOpponent() {
   $(".character").click(function() {
     opponent=$(this).id();
+    // move to #fight-container
   });
   // unbind?
 }
@@ -163,4 +165,4 @@ $("#fight").click(function() {
     opponent.currentHealth -= userChar.currentAttack;
     // popover speech balloons with random phrase for both
   }
-})
+});
