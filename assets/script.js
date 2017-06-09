@@ -129,8 +129,7 @@ function loseGame() {
   reset();
 }
 
-// How do I determine win? Do I, at the start, push opponents to an array, delete them one by one, and determine win when the array .length === 0?
-// Or simply hard-code the number of antagonists (5), keep track of defeats with a counter, and determine win when counter === 5?
+// hard-code the number of antagonists (5), keep track of defeats with a counter, and determine win when counter === 5
 
 function winGame() {
   // inform user of win
@@ -152,7 +151,11 @@ $("#fight").click(function() {
     alert("First you must choose a character. \nClick on any character to play as him or her.");
   } else if (!opponent) {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
-  } else if (userChar.currentHealth < 1) {
+  } 
+  opponent.currentHealth -= userChar.currentAttack;
+  userChar.currentHealth -= opponent.baseAttack;
+  // popover speech balloons with random phrase for both
+  if (userChar.currentHealth < 1) {
     loseGame();
   } else if (opponent.currentHealth < 1) {
     winCounter++;
@@ -161,8 +164,5 @@ $("#fight").click(function() {
       winGame();
     }
   } else {
-    userChar.currentHealth -= opponent.baseAttack;
-    opponent.currentHealth -= userChar.currentAttack;
-    // popover speech balloons with random phrase for both
   }
 });
