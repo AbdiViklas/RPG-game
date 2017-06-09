@@ -7,6 +7,7 @@
 body {
   background: #000 url(images/doctor-who-hd-wallpaper.jpg) no-repeat right bottom;
 	min-height: 100vh;
+	color: deepskyblue;
 }
 
 .character {
@@ -16,11 +17,21 @@ body {
 	/* check out what size actually comes of these two */
 	max-height: 20vh;
 	background-color: white;
-	/*border: 3px solid white;*/
+	border: 3px solid rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
-	box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.5);
+	/*box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.5);*/
 }
 
 #dr10 {
 	background: #000 url(images/dr10.jpg) no-repeat center/auto 100%;
+}
+
+.divider {
+	height: 20px;
+	width: 100%;
+	background: deepskyblue; /* For browsers that do not support gradients */
+	background: -webkit-radial-gradient(deepskyblue, rgba(19, 174, 253, 0)); /* Safari 5.1 to 6.0 */
+	background: -o-radial-gradient(deepskyblue, rgba(19, 174, 253, 0)); /* For Opera 11.6 to 12.0 */
+	background: -moz-radial-gradient(deepskyblue, rgba(19, 174, 253, 0)); /* For Firefox 3.6 to 15 */
+	background: radial-gradient(deepskyblue, rgba(19, 174, 253, 0)); /* Standard syntax */
 }
