@@ -8,6 +8,7 @@ body {
   background: #000 url(images/doctor-who-hd-wallpaper.jpg) no-repeat right bottom;
 	min-height: 100vh;
 	color: deepskyblue;
+	padding: 1vh 1vw;
 }
 
 .character {
@@ -16,14 +17,33 @@ body {
 	min-height: 150px; 
 	/* check out what size actually comes of these two */
 	max-height: 20vh;
-	background-color: white;
+	background-color: #000;
 	border: 3px solid rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
 	/*box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.5);*/
+	margin: 5px;
+	text-align: right;
+	vertical-align: bottom;
 }
 
 #dr10 {
 	background: #000 url(images/dr10.jpg) no-repeat center/auto 100%;
+}
+
+#dalek {
+	background: #000 url(images/dalek.jpg) no-repeat center/auto 100%;
+}
+
+#cyberman {
+	background: #000 url(images/cyberman.jpg) no-repeat center/auto 100%;
+}
+
+#angel {
+	background: #000 url(images/angel.jpg) no-repeat center/auto 100%;
+}
+
+#silence {
+	background: #000 url(images/silence.jpg) no-repeat center/auto 100%;
 }
 
 .divider {

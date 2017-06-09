@@ -1,5 +1,6 @@
 // CHARACTER OBJECTS
 var dr10 = {
+  idName: "dr10",
   name: "the Tenth Doctor",
   maxHealth: 80,
   currentHealth: 80,
@@ -19,6 +20,7 @@ var dr10 = {
 }
 
 var dalek = {
+  idName: "dalek",
   name: "a Dalek",
   maxHealth: 30,
   currentHealth: 30,
@@ -36,6 +38,7 @@ var dalek = {
 }
 
 var cyberman = {
+  idName: "cyberman",
   name: "a Cyberman",
   maxHealth: 50,
   currentHealth: 50,
@@ -52,6 +55,7 @@ var cyberman = {
 }
 
 var angel = {
+  idName: "angel",
   name: "a Weeping Angel",
   maxHealth: 40,
   currentHealth: 40,
@@ -64,6 +68,7 @@ var angel = {
 }
 
 var silence = {
+  idName: "silence",
   name: "the Silence",
   maxHealth: 60,
   currentHealth: 6.,
@@ -84,6 +89,12 @@ var opponent;
 var winCounter = 0;
 
 // FUNCTIONS
+
+function writeStats(objects) {
+  $("#" + object.idName).html(`
+    <p class="stat">${object.currentHealth}</p>
+  `);
+}
 
 function chooseChar() {
   $(".character").click(function() {
@@ -145,3 +156,7 @@ $("#fight").click(function() {
   } else {
   }
 });
+
+$(document).ready(function() {
+  $(".character") // jQuery way of saying "do to each": writeStats()
+})
