@@ -7,30 +7,14 @@ var dr10 = {
   currentAttack: 5,
   attacks: [
     "sonic screwdriver",
-    "Plimsolls", //check sp
+    "Plimsolls",
     "spiky hair",
     "Run!"
   ],
   phrases: [
     "Allons-y!",
-    "Run!"
-  ]
-}
-
-var dr11 = {
-  name: "the Eleventh Doctor",
-  maxHealth: 90,
-  currentHealth: 90,
-  baseAttack: 7,
-  currentAttack: 7,
-  attacks: [
-    "sonic screwdriver",
-    "fez"
-  ],
-  phrases: [
-    "Bowties are cool.",
-    "A good man goes to war!",
-    "I am definitely a madman with a box!"
+    "Run!",
+    "I'm sorry. I'm so sorry."
   ]
 }
 
@@ -43,7 +27,7 @@ var dalek = {
   attacks: [
     "scream",
     "plunger",
-    "laser"
+    "death ray"
   ],
   phrases: [
     "Exterminate! EXTERMINATE!",
@@ -62,27 +46,25 @@ var cyberman = {
     "fly"
   ],
   phrases: [
-    ""
+    "Delete!",
+    "Upgrade!"
   ]
 }
 
-var river = {
-  name: "River Song",
+var angel = {
+  name: "a Weeping Angel",
   maxHealth: 40,
   currentHealth: 40,
   baseAttack: 5,
   currentAttack: 5,
   attacks: [
-    "notebook",
-    "sonic screwdriver"
-  ],
-  phrases: [
-    "Spoilers, sweetie!"
+    "touch",
+    "move really really fast"
   ]
 }
 
-var amy = {
-  name: "Amy Pond",
+var silence = {
+  name: "the Silence",
   maxHealth: 60,
   currentHealth: 6.,
   baseAttack: 7,
@@ -90,9 +72,6 @@ var amy = {
   attacks: [
     "wait",
     "tell off"
-  ],
-  phrases: [
-    ""
   ]
 }
 
