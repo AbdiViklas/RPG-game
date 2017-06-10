@@ -90,9 +90,11 @@ var winCounter = 0;
 
 // FUNCTIONS
 
-function writeStats(objects) {
-  $("#" + object.idName).html(`
-    <p class="stat">${object.currentHealth}</p>
+function writeStats(div) {
+  var objectName = $(div).attr("id");
+  console.log(objectName);
+  $(div).html(`
+    <p class="stat">${objectName.currentHealth}</p>
   `);
 }
 
@@ -101,10 +103,8 @@ function chooseChar() {
     userChar=$(this).id();
     // move to #fight-container
   });
-  // unbind?
+  // unbind? or use $.one ?
 }
-
-// the challenge: can I un-bind an event listener? because I don't want to always be listening on every .character click, and calling the function
 
 function chooseOpponent() {
   $(".character").click(function() {
@@ -158,5 +158,7 @@ $("#fight").click(function() {
 });
 
 $(document).ready(function() {
-  $(".character") // jQuery way of saying "do to each": writeStats()
+  $(".character").each(function (index) {
+    writeStats($(this));
+  });
 })
