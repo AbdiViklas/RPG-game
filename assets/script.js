@@ -126,6 +126,11 @@ function winGame() {
 
 function reset() {
   // reset .currentHealth amounts to .maxHealth
+  for (var char in characters) {
+    console.log(char);
+    console.log(characters[char].currentHealth);
+    characters[char].currentHealth = characters[char].maxHealth;
+  }
   // reset protagonist character attack to original level
   // --or better yet "dismount" character
   // set userChar to undefined?
