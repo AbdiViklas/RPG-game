@@ -91,7 +91,7 @@ var winCounter = 0;
 
 function writeStats(div) {
   $(div).html(`
-    <p class="stat">${$(div).data().currentHealth}</p>
+    <p class="stat">Health: ${$(div).data().currentHealth}</p>
   `);
 }
 
