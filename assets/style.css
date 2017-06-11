@@ -13,6 +13,7 @@ body {
 
 .character {
 	display: inline-block;
+	position: relative;
 	width: 100px;
 	min-height: 150px; 
 	/* check out what size actually comes of these two */
@@ -44,6 +45,11 @@ body {
 
 #silence {
 	background: #000 url(images/silence.jpg) no-repeat center/auto 100%;
+}
+
+.stat {
+	position: absolute;
+	bottom: 0;
 }
 
 .divider {

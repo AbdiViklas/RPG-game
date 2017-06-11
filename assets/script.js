@@ -1,83 +1,82 @@
 // CHARACTER OBJECTS
-var dr10 = {
-  idName: "dr10",
-  name: "the Tenth Doctor",
-  maxHealth: 80,
-  currentHealth: 80,
-  baseAttack: 5,
-  currentAttack: 5,
-  attacks: [
-    "sonic screwdriver",
-    "Plimsolls",
-    "spiky hair",
-    "Run!"
-  ],
-  phrases: [
-    "Allons-y!",
-    "Run!",
-    "I'm sorry. I'm so sorry."
-  ]
-}
 
-var dalek = {
-  idName: "dalek",
-  name: "a Dalek",
-  maxHealth: 30,
-  currentHealth: 30,
-  baseAttack: 10,
-  currentAttack: 10,
-  attacks: [
-    "scream",
-    "plunger",
-    "death ray"
-  ],
-  phrases: [
-    "Exterminate! EXTERMINATE!",
-    "You are a good Dalek!"
-  ]
-}
-
-var cyberman = {
-  idName: "cyberman",
-  name: "a Cyberman",
-  maxHealth: 50,
-  currentHealth: 50,
-  baseAttack: 8,
-  currentAttack: 8,
-  attacks: [
-    "wrist missiles",
-    "fly"
-  ],
-  phrases: [
-    "Delete!",
-    "Upgrade!"
-  ]
-}
-
-var angel = {
-  idName: "angel",
-  name: "a Weeping Angel",
-  maxHealth: 40,
-  currentHealth: 40,
-  baseAttack: 5,
-  currentAttack: 5,
-  attacks: [
-    "touch",
-    "move really really fast"
-  ]
-}
-
-var silence = {
-  idName: "silence",
-  name: "the Silence",
-  maxHealth: 60,
-  currentHealth: 6.,
-  baseAttack: 7,
-  currentAttack: 7,
-  attacks: [
-    "wait",
-    "tell off"
-  ]
+var characters = {
+  dr10: {
+    idName: "dr10",
+    name: "the Tenth Doctor",
+    maxHealth: 80,
+    currentHealth: 80,
+    baseAttack: 5,
+    currentAttack: 5,
+    attacks: [
+      "sonic screwdriver",
+      "Plimsolls",
+      "spiky hair",
+      "Run!"
+    ],
+    phrases: [
+      "Allons-y!",
+      "Run!",
+      "I'm sorry. I'm so sorry."
+    ]
+  },
+  dalek: {
+    idName: "dalek",
+    name: "a Dalek",
+    maxHealth: 30,
+    currentHealth: 30,
+    baseAttack: 10,
+    currentAttack: 10,
+    attacks: [
+      "scream",
+      "plunger",
+      "death ray"
+    ],
+    phrases: [
+      "Exterminate! EXTERMINATE!",
+      "You are a good Dalek!"
+    ]
+  },
+  cyberman: {
+    idName: "cyberman",
+    name: "a Cyberman",
+    maxHealth: 50,
+    currentHealth: 50,
+    baseAttack: 8,
+    currentAttack: 8,
+    attacks: [
+      "wrist missiles",
+      "fly"
+    ],
+    phrases: [
+      "Delete!",
+      "Upgrade!"
+    ]
+  },
+  angel: {
+    idName: "angel",
+    name: "a Weeping Angel",
+    maxHealth: 40,
+    currentHealth: 40,
+    baseAttack: 5,
+    currentAttack: 5,
+    attacks: [
+      "touch",
+      "move really really fast"
+    ]
+  },
+  silence: {
+    idName: "silence",
+    name: "the Silence",
+    maxHealth: 60,
+    currentHealth: 6.,
+    baseAttack: 7,
+    currentAttack: 7,
+    attacks: [
+      "wait",
+      "tell off"
+    ]
+  }
 }
 
 // OTHER VARIABLES
@@ -91,9 +90,8 @@ var winCounter = 0;
 // FUNCTIONS
 
 function writeStats(div) {
-  var objectName = div.id;
   $(div).html(`
-    <p class="stat">${objectName.currentHealth}</p>
+    <p class="stat">${$(div).data().currentHealth}</p>
   `);
 }
 
@@ -161,7 +159,8 @@ $("#fight").click(function() {
 
 $(document).ready(function() {
   $(".character").each(function (index) {
-    $(this).data(window[this.id]);
+    var objectName = this.id;
+    $(this).data(characters[objectName]);
     writeStats(this);
   });
 })
