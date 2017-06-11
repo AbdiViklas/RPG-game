@@ -91,8 +91,7 @@ var winCounter = 0;
 // FUNCTIONS
 
 function writeStats(div) {
-  var objectName = $(div).attr("id");
-  console.log(objectName);
+  var objectName = div.id;
   $(div).html(`
     <p class="stat">${objectName.currentHealth}</p>
   `);
@@ -100,7 +99,8 @@ function writeStats(div) {
 
 function chooseChar() {
   $(".character").click(function() {
-    userChar=$(this).id();
+    console.log(this);
+    userChar=this.id;
     // move to #fight-container
   });
   // unbind? or use $.one ?
@@ -108,7 +108,7 @@ function chooseChar() {
 
 function chooseOpponent() {
   $(".character").click(function() {
-    opponent=$(this).id();
+    opponent=this.id;
     // move to #fight-container
   });
   // unbind?
@@ -139,8 +139,10 @@ function reset() {
 $("#fight").click(function() {
   if (!userChar) {
     alert("First you must choose a character. \nClick on any character to play as him or her.");
+    return;
   } else if (!opponent) {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
+    return;
   } 
   opponent.currentHealth -= userChar.currentAttack;
   userChar.currentHealth -= opponent.baseAttack;
@@ -159,6 +161,7 @@ $("#fight").click(function() {
 
 $(document).ready(function() {
   $(".character").each(function (index) {
-    writeStats($(this));
+    $(this).data(window[this.id]);
+    writeStats(this);
   });
 })
