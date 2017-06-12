@@ -95,26 +95,42 @@ function writeStats(div) {
   `);
 }
 
+// PROBLEM: right now, during reset(), the alert can be appended into #card-container *before* the character cards get back in place
 function chooseChar() {
-  alert("Choose a character to play as!"); // replace with proper, non-blocking, bootstrap alerts or modals
+  $("#card-container").append(`
+    <div id="chooseCharAlert" class="alert alert-info alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      First, choose a character to play as!
+    </div>`);
   $(".character").on("click", function() {
     userChar=characters[this.id];
     userCharDiv = this;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(0, 191, 255, 0.5)");
     $(".character").off();
+    $("#chooseCharAlert").alert("close");
     chooseOpponent();
   });
 }
 
 function chooseOpponent() {
-  alert("Now choose a character to fight!"); // replace with proper, non-blocking, bootstrap alerts or modals
+  $("#card-container").append(`
+    <div id="chooseOpponentAlert" class="alert alert-info alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      Next, choose a character to fight!
+    </div>`);
   $(".character").on("click", function() {
     opponent=characters[this.id];
     opponentDiv = this;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
     $(".character").off();
+    $("#chooseOpponentAlert").alert("close");
+    $("#fight-container").append(`
+    <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      Finally, click the "Fight" button to attack your opponent!
+    </div>`);
   });
 }
 
@@ -139,16 +155,13 @@ function reset() {
     characters[char].currentHealth = characters[char].maxHealth;
   }
   // reset protagonist character attack to original level
-  userChar.currentAttack = userChar.baseAttack;
+  userChar.currentAttack = userChar.baseAttack; //small problem: although this line appears to be executed before the writeStats line below, the console shows an error suggesting that userChar has already been set to undefined by the lines below
   $(".character").each(function (index) {
     writeStats(this);
   });
   userChar = undefined;
   opponent = undefined;
   chooseChar();
-  // can all these changes to character objects be accomplished by
-  // keeping the objects in another file, unmutated, "copy" them into this file,
-  // mutate them, and then "reload" the originals?
 }
 
 $("#fight").click(function() {
@@ -159,6 +172,7 @@ $("#fight").click(function() {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
     return;
   } 
+  $("#fightAlert").alert("close");
   opponent.currentHealth -= userChar.currentAttack;
   userChar.currentHealth -= opponent.baseAttack;
   userChar.currentAttack += 5;
