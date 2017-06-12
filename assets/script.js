@@ -83,15 +83,16 @@ var characters = {
 
 // play starts when user chooses a character (by clicking)
 // start with a tutorial-style modal instructing that
-var userChar;
-var opponent;
+var userChar, userCharDiv, opponent, opponentDiv;
 var winCounter = 0;
 
 // FUNCTIONS
 
 function writeStats(div) {
+  var objectName = div.id;
+  console.log(objectName);
   $(div).html(`
-    <p class="stat">Health: ${$(div).data().currentHealth}</p>
+    <p class="stat">Health: ${characters[objectName].currentHealth}</p>
   `);
 }
 
@@ -99,6 +100,7 @@ function chooseChar() {
   alert("Choose a character to play as!"); // replace with proper, non-blocking, bootstrap alerts or modals
   $(".character").on("click", function() {
     userChar=this.id;
+    userCharDiv = this;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(0, 191, 255, 0.5)");
     $(".character").off();
@@ -110,6 +112,7 @@ function chooseOpponent() {
   alert("Now choose a character to fight!"); // replace with proper, non-blocking, bootstrap alerts or modals
   $(".character").on("click", function() {
     opponent=this.id;
+    opponentDiv = this;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
     $(".character").off();
@@ -151,12 +154,14 @@ $("#fight").click(function() {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
     return;
   } 
-  opponent.currentHealth -= userChar.currentAttack;
-  userChar.currentHealth -= opponent.baseAttack;
+  characters[opponent].currentHealth -= characters[userChar].currentAttack;
+  characters[userChar].currentHealth -= characters[opponent].baseAttack;
   // popover speech balloons with random phrase for both
-  if (userChar.currentHealth < 1) {
+  writeStats(userCharDiv);
+  writeStats(opponentDiv);
+  if (characters[userChar].currentHealth < 1) {
     loseGame();
-  } else if (opponent.currentHealth < 1) {
+  } else if (characters[opponent].currentHealth < 1) {
     winCounter++;
     // "remove" opponent from the DOM--hide? or actually delete?
     if (winCounter === 5) {
@@ -168,9 +173,8 @@ $("#fight").click(function() {
 
 $(document).ready(function() {
   $(".character").each(function (index) {
-    var objectName = this.id;
-    $(this).data(characters[objectName]);
+    console.log(this);
     writeStats(this);
   });
   chooseChar();
-})
+});
