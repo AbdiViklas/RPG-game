@@ -12,8 +12,6 @@ User chooses a new opponent and repeats until...
 winGame()
 */
 
-// next todo: take care of reinstating .defeated to DOM and restyling on reset
-
 // CHARACTER OBJECTS
 
 var characters = {
@@ -168,7 +166,7 @@ function defeatOpponent() {
         You've defeated ${opponent.name}! Brilliant! Now click another character to fight it.
       </div>`);
     runAlerts = false; // You've got it from here
-    $(opponentDiv).addClass("defeated"); // so we can find it again later...
+    $(opponentDiv).addClass("defeated"); // display: none, but it hasn't gone anywhere...
     chooseOpponent();
   }
 }
@@ -184,9 +182,8 @@ function winGame() {
 
 function reset() {
   $("#card-container").append(userCharDiv, opponentDiv, $(".defeated"));
-  $(userCharDiv).css("border-color", "rgba(0, 0, 0, 0.5)");
-  $(opponentDiv).css("border-color", "rgba(0, 0, 0, 0.5)");
-  // reset .currentHealth amounts to .maxHealth
+  $(".character").css("border-color", "rgba(0, 0, 0, 0.5)");
+  // reset .currentHealth amounts to .maxHealth:
   for (var char in characters) {
     characters[char].currentHealth = characters[char].maxHealth;
   }
@@ -224,8 +221,5 @@ $("#fight").click(function() {
 });
 
 $(document).ready(function() {
-  $(".character").each(function (index) {
-    writeStats(this);
-  });
-  chooseChar();
+  reset();
 });
