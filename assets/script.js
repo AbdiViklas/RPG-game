@@ -115,8 +115,7 @@ function chooseChar() {
       <div id="chooseCharAlert" class="alert alert-info alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         First, choose a character to play as!
-      </div>`
-    );
+      </div>`);
   }
   $(".character").on("click", function() {
     userChar=characters[this.id];
@@ -130,36 +129,41 @@ function chooseChar() {
 }
 
 function chooseOpponent() {
-  $("#card-container").append(`
-    <div id="chooseOpponentAlert" class="alert alert-info alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      Next, choose a character to fight!
-    </div>`);
+  if (runAlerts) {
+    $("#card-container").append(`
+      <div id="chooseOpponentAlert" class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Next, choose a character to fight!
+      </div>`);
+  }
   $(".character").on("click", function() {
     opponent=characters[this.id];
     opponentDiv = this;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
     $(".character").off();
-    if ($("#fightAlert")) {
-      $("#fightAlert").alert("close");
+    if ($("#defeatAlert")) {
+      $("#defeatAlert").alert("close");
     }
     $("#chooseOpponentAlert").alert("close");
-    $("#fight").append(`
-    <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      Finally, click the "Fight" button to attack your opponent!
-    </div>`);
+    if (runAlerts) {
+      $("#fight").append(`
+      <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Finally, click the "Fight" button to attack your opponent!
+      </div>`);
+    }
   });
 }
 
 function defeatOpponent() {
   winCounter++;
   $("#fight-container").append(`
-    <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
+    <div id="defeatAlert" class="alert alert-info alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       You've defeated ${opponent.name}! Brilliant! Now click another character to fight it.
     </div>`);
+    runAlerts = false; // You've got it from here
     $(opponentDiv).addClass("defeated"); // so we can find it again later...
     $(opponentDiv).detach(); // remove it from DOM
     chooseOpponent();
