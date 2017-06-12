@@ -13,7 +13,12 @@ body {
 }
 
 .alert {
+	display: inline-block;
 	opacity: 0.8;
+}
+
+#card-container {
+	height: 175px;
 }
 
 .character {
@@ -70,4 +75,8 @@ body {
 	background: -o-radial-gradient(deepskyblue, rgba(19, 174, 253, 0)); /* For Opera 11.6 to 12.0 */
 	background: -moz-radial-gradient(deepskyblue, rgba(19, 174, 253, 0)); /* For Firefox 3.6 to 15 */
 	background: radial-gradient(deepskyblue, rgba(19, 174, 253, 0)); /* Standard syntax */
+}
+
+#fight-container {
+	height: 175px;
 }

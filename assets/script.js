@@ -81,8 +81,6 @@ var characters = {
 
 // OTHER VARIABLES
 
-// play starts when user chooses a character (by clicking)
-// start with a tutorial-style modal instructing that
 var userChar, userCharDiv, opponent, opponentDiv;
 var winCounter = 0;
 
@@ -95,7 +93,6 @@ function writeStats(div) {
   `);
 }
 
-// PROBLEM: right now, during reset(), the alert can be appended into #card-container *before* the character cards get back in place
 function chooseChar() {
   $("#card-container").append(`
     <div id="chooseCharAlert" class="alert alert-info alert-dismissible" role="alert">
@@ -126,7 +123,7 @@ function chooseOpponent() {
     $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
     $(".character").off();
     $("#chooseOpponentAlert").alert("close");
-    $("#fight-container").append(`
+    $("#fight").append(`
     <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       Finally, click the "Fight" button to attack your opponent!
@@ -134,15 +131,19 @@ function chooseOpponent() {
   });
 }
 
+function defeatOpponent() {
+  // alert news, inserting name
+  // remove border styling from existing opponent and remove it from DOM
+  // run chooseOpponent();
+}
+
 function loseGame() {
   $("#loseModal").modal();
   $("#defeater").text(opponent.name);
 }
 
-// hard-code the number of antagonists (4), keep track of defeats with a counter, and determine win when counter === 4
-
 function winGame() {
-  // inform user of win
+  $("#winModal").modal();
   reset();
 }
 
