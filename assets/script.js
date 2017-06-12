@@ -12,6 +12,7 @@ User chooses a new opponent and repeats until...
 winGame()
 */
 
+// next todo: take care of reinstating .defeated to DOM and restyling on reset
 
 // CHARACTER OBJECTS
 
@@ -158,15 +159,18 @@ function chooseOpponent() {
 
 function defeatOpponent() {
   winCounter++;
-  $("#fight-container").append(`
-    <div id="defeatAlert" class="alert alert-info alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      You've defeated ${opponent.name}! Brilliant! Now click another character to fight it.
-    </div>`);
+  if (winCounter === 4) {
+    winGame();
+  } else {
+    $("#fight-container").append(`
+      <div id="defeatAlert" class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        You've defeated ${opponent.name}! Brilliant! Now click another character to fight it.
+      </div>`);
     runAlerts = false; // You've got it from here
     $(opponentDiv).addClass("defeated"); // so we can find it again later...
-    $(opponentDiv).detach(); // remove it from DOM
     chooseOpponent();
+  }
 }
 
 function loseGame() {
@@ -215,9 +219,6 @@ $("#fight").click(function() {
     loseGame();
   } else if (opponent.currentHealth < 1) {
     defeatOpponent();
-    if (winCounter === 4) {
-      winGame();
-    }
   } else {
   }
 });

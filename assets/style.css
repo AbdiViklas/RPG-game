@@ -85,3 +85,7 @@ body {
 #fight-btn {
 	vertical-align: top;
 }
+
+.defeated {
+	display: none;
+}
