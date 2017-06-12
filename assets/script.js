@@ -96,19 +96,24 @@ function writeStats(div) {
 }
 
 function chooseChar() {
+  alert("Choose a character to play as!"); // replace with proper, non-blocking, bootstrap alerts or modals
   $(".character").on("click", function() {
     userChar=this.id;
     $("#fight-container").append(this); // move to #fight-container
+    $(this).css("border-color", "rgba(0, 191, 255, 0.5)");
     $(".character").off();
+    chooseOpponent();
   });
 }
 
 function chooseOpponent() {
-  $(".character").click(function() {
+  alert("Now choose a character to fight!"); // replace with proper, non-blocking, bootstrap alerts or modals
+  $(".character").on("click", function() {
     opponent=this.id;
-    // move to #fight-container
+    $("#fight-container").append(this); // move to #fight-container
+    $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
+    $(".character").off();
   });
-  // unbind?
 }
 
 function loseGame() {
@@ -167,4 +172,5 @@ $(document).ready(function() {
     $(this).data(characters[objectName]);
     writeStats(this);
   });
+  chooseChar();
 })
