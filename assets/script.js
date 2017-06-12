@@ -81,7 +81,7 @@ var characters = {
 
 // OTHER VARIABLES
 
-var userChar, userCharDiv, opponent, opponentDiv, roundOver;
+var userChar, userCharDiv, opponent, opponentDiv;
 var winCounter = 0;
 var runAlerts = true;
 
@@ -124,7 +124,6 @@ function chooseOpponent() {
   $(".character").on("click", function() {
     opponent=characters[this.id];
     opponentDiv = this;
-    roundOver = false;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
     $(".character").off();
@@ -139,12 +138,13 @@ function chooseOpponent() {
         Finally, click the "Fight" button to attack your opponent!
       </div>`); 
     }
+    $("#fight-btn").removeAttr("disabled");
   });
 }
 
 function defeatOpponent() {
   winCounter++; 
-  roundOver = true; // to prevent additional wins from clicking the button more times. chooseOpponent() will set it to false.
+  $("#fight-btn").attr("disabled", "disabled"); // to prevent additional wins from clicking the button more times. chooseOpponent() will remove it.
   if (winCounter === 4) {
     winGame();
   } else {
@@ -187,7 +187,7 @@ function reset() {
 }
 
 $("#fight-btn").click(function() {
-  if (roundOver) {
+  if ($(this).attr("disabled")) {
     return;
   } else if (!userChar) {
     alert("First you must choose a character. \nClick on any character to play as him or her.");
