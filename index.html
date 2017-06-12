@@ -13,20 +13,26 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700" rel="stylesheet">
   <!-- link own css -->
   <link rel="stylesheet" href="assets/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  <div class="container-fluid">
+    <div class="row">
   <div id="card-container">
-    <div id="dr10" class="character"></div>
-    <div id="dalek" class="character"></div>
-    <div id="cyberman" class="character"></div>
-    <div id="angel" class="character"></div>
-    <div id="silence" class="character"></div>
+    <div id="dr10" class="character col-sm-2"></div>
+    <div id="dalek" class="character col-sm-2"></div>
+    <div id="cyberman" class="character col-sm-2"></div>
+    <div id="angel" class="character col-sm-2"></div>
+    <div id="silence" class="character col-sm-2"></div>
   </div>
+    </div> <!--close row-->
   <!-- some kind of hr-like separator -->
   <div class="divider"></div>
 
   <div id="fight-container"></div>
-  <button id="fight">Fight!</button>
+  <div id="fight">
+    <button id="fight-btn" type="button" class="btn btn-danger">Fight!</button>
+  </div>
   <!--insert instruction modal-->
 <!--modal for losing the game-->
 <div id="loseModal" class="modal fade" tabindex="-1" role="dialog">
@@ -62,6 +68,7 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+  </div> <!--/.container-fluid-->
   <script type="text/javascript" src="assets/script.js"></script>
 </body>
 </html>

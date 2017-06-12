@@ -132,7 +132,11 @@ function chooseOpponent() {
 }
 
 function defeatOpponent() {
-  // alert news, inserting name
+  $("#fight-container").append(`
+    <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      You've defeated ${opponent.name}! Brilliant! Now click another character to fight it.
+    </div>`);
   // remove border styling from existing opponent and remove it from DOM
   // run chooseOpponent();
 }

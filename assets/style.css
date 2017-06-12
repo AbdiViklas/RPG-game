@@ -19,15 +19,16 @@ body {
 
 #card-container {
 	height: 175px;
+	/*max-height: 20vh; work later on responsive sizing */
 }
 
 .character {
 	display: inline-block;
 	position: relative;
 	width: 100px;
-	min-height: 150px; 
-	/* check out what size actually comes of these two */
-	max-height: 20vh;
+	height: 150px;
+	/*max-height: 20vh;*/
+	/* work later on responsive sizing */
 	border: 3px solid rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
 	/*box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.5);*/
@@ -79,4 +80,8 @@ body {
 
 #fight-container {
 	height: 175px;
+}
+
+#fight-btn {
+	vertical-align: top;
 }
