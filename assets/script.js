@@ -1,3 +1,18 @@
+/* Game logic flow:
+User selects a character
+  chooseChar();
+User selects an opponent
+  chooseOpponent();
+User clicks fight until...
+  A: User is defeated
+    loseGame() (button calls reset())
+  B: opponent is defeated
+    defeatOpponent()
+User chooses a new opponent and repeats until...
+winGame()
+*/
+
+
 // CHARACTER OBJECTS
 
 var characters = {
@@ -83,6 +98,7 @@ var characters = {
 
 var userChar, userCharDiv, opponent, opponentDiv;
 var winCounter = 0;
+var runAlerts = true;
 
 // FUNCTIONS
 
@@ -94,11 +110,14 @@ function writeStats(div) {
 }
 
 function chooseChar() {
-  $("#card-container").append(`
-    <div id="chooseCharAlert" class="alert alert-info alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      First, choose a character to play as!
-    </div>`);
+  if (runAlerts) {
+    $("#card-container").append(`
+      <div id="chooseCharAlert" class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        First, choose a character to play as!
+      </div>`
+    );
+  }
   $(".character").on("click", function() {
     userChar=characters[this.id];
     userCharDiv = this;
@@ -122,6 +141,9 @@ function chooseOpponent() {
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
     $(".character").off();
+    if ($("#fightAlert")) {
+      $("#fightAlert").alert("close");
+    }
     $("#chooseOpponentAlert").alert("close");
     $("#fight").append(`
     <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
@@ -132,13 +154,15 @@ function chooseOpponent() {
 }
 
 function defeatOpponent() {
+  winCounter++;
   $("#fight-container").append(`
     <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       You've defeated ${opponent.name}! Brilliant! Now click another character to fight it.
     </div>`);
-  // remove border styling from existing opponent and remove it from DOM
-  // run chooseOpponent();
+    $(opponentDiv).addClass("defeated"); // so we can find it again later...
+    $(opponentDiv).detach(); // remove it from DOM
+    chooseOpponent();
 }
 
 function loseGame() {
@@ -148,11 +172,10 @@ function loseGame() {
 
 function winGame() {
   $("#winModal").modal();
-  reset();
 }
 
 function reset() {
-  $("#card-container").append(userCharDiv, opponentDiv);
+  $("#card-container").append(userCharDiv, opponentDiv, $(".defeated"));
   $(userCharDiv).css("border-color", "rgba(0, 0, 0, 0.5)");
   $(opponentDiv).css("border-color", "rgba(0, 0, 0, 0.5)");
   // reset .currentHealth amounts to .maxHealth
@@ -187,8 +210,7 @@ $("#fight").click(function() {
   if (userChar.currentHealth < 1) {
     loseGame();
   } else if (opponent.currentHealth < 1) {
-    winCounter++;
-    // "remove" opponent from the DOM--hide? or actually delete?
+    defeatOpponent();
     if (winCounter === 4) {
       winGame();
     }
