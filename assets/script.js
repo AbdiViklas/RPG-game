@@ -90,7 +90,6 @@ var winCounter = 0;
 
 function writeStats(div) {
   var objectName = div.id;
-  console.log(objectName);
   $(div).html(`
     <p class="stat">Health: ${characters[objectName].currentHealth}</p>
   `);
@@ -120,7 +119,7 @@ function chooseOpponent() {
 }
 
 function loseGame() {
-  // inform user of loss
+  $("#loseModal").modal();
   reset();
 }
 
@@ -132,15 +131,21 @@ function winGame() {
 }
 
 function reset() {
+  $("#card-container").append(userCharDiv, opponentDiv);
+  $(userCharDiv).css("border-color", "rgba(0, 0, 0, 0.5)");
+  $(opponentDiv).css("border-color", "rgba(0, 0, 0, 0.5)");
   // reset .currentHealth amounts to .maxHealth
   for (var char in characters) {
-    console.log(char);
-    console.log(characters[char].currentHealth);
     characters[char].currentHealth = characters[char].maxHealth;
   }
   // reset protagonist character attack to original level
   userChar.currentAttack = userChar.baseAttack;
+  $(".character").each(function (index) {
+    writeStats(this);
+  });
   userChar = undefined;
+  opponent = undefined;
+  chooseChar();
   // can all these changes to character objects be accomplished by
   // keeping the objects in another file, unmutated, "copy" them into this file,
   // mutate them, and then "reload" the originals?
@@ -174,7 +179,6 @@ $("#fight").click(function() {
 
 $(document).ready(function() {
   $(".character").each(function (index) {
-    console.log(this);
     writeStats(this);
   });
   chooseChar();
