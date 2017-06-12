@@ -96,12 +96,11 @@ function writeStats(div) {
 }
 
 function chooseChar() {
-  $(".character").click(function() {
-    console.log(this);
+  $(".character").on("click", function() {
     userChar=this.id;
-    // move to #fight-container
+    $("#fight-container").append(this); // move to #fight-container
+    $(".character").off();
   });
-  // unbind? or use $.one ?
 }
 
 function chooseOpponent() {
