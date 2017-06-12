@@ -99,7 +99,7 @@ function writeStats(div) {
 function chooseChar() {
   alert("Choose a character to play as!"); // replace with proper, non-blocking, bootstrap alerts or modals
   $(".character").on("click", function() {
-    userChar=this.id;
+    userChar=characters[this.id];
     userCharDiv = this;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(0, 191, 255, 0.5)");
@@ -111,7 +111,7 @@ function chooseChar() {
 function chooseOpponent() {
   alert("Now choose a character to fight!"); // replace with proper, non-blocking, bootstrap alerts or modals
   $(".character").on("click", function() {
-    opponent=this.id;
+    opponent=characters[this.id];
     opponentDiv = this;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
@@ -124,7 +124,7 @@ function loseGame() {
   reset();
 }
 
-// hard-code the number of antagonists (5), keep track of defeats with a counter, and determine win when counter === 5
+// hard-code the number of antagonists (4), keep track of defeats with a counter, and determine win when counter === 4
 
 function winGame() {
   // inform user of win
@@ -139,8 +139,8 @@ function reset() {
     characters[char].currentHealth = characters[char].maxHealth;
   }
   // reset protagonist character attack to original level
-  // --or better yet "dismount" character
-  // set userChar to undefined?
+  userChar.currentAttack = userChar.baseAttack;
+  userChar = undefined;
   // can all these changes to character objects be accomplished by
   // keeping the objects in another file, unmutated, "copy" them into this file,
   // mutate them, and then "reload" the originals?
@@ -154,17 +154,18 @@ $("#fight").click(function() {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
     return;
   } 
-  characters[opponent].currentHealth -= characters[userChar].currentAttack;
-  characters[userChar].currentHealth -= characters[opponent].baseAttack;
+  opponent.currentHealth -= userChar.currentAttack;
+  userChar.currentHealth -= opponent.baseAttack;
+  userChar.currentAttack += 5;
   // popover speech balloons with random phrase for both
   writeStats(userCharDiv);
   writeStats(opponentDiv);
-  if (characters[userChar].currentHealth < 1) {
+  if (userChar.currentHealth < 1) {
     loseGame();
-  } else if (characters[opponent].currentHealth < 1) {
+  } else if (opponent.currentHealth < 1) {
     winCounter++;
     // "remove" opponent from the DOM--hide? or actually delete?
-    if (winCounter === 5) {
+    if (winCounter === 4) {
       winGame();
     }
   } else {
