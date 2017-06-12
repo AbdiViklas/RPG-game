@@ -1,22 +1,8 @@
-/* Game logic flow:
-User selects a character
-  chooseChar();
-User selects an opponent
-  chooseOpponent();
-User clicks fight until...
-  A: User is defeated
-    loseGame() (button calls reset())
-  B: opponent is defeated
-    defeatOpponent()
-User chooses a new opponent and repeats until...
-winGame()
-*/
-
 // CHARACTER OBJECTS
 
 var characters = {
   dr10: {
-    idName: "dr10",
+    idName: "dr10", // maybe delete when I'm sure I don't need it
     name: "the Tenth Doctor",
     maxHealth: 80,
     currentHealth: 80,
@@ -95,7 +81,7 @@ var characters = {
 
 // OTHER VARIABLES
 
-var userChar, userCharDiv, opponent, opponentDiv;
+var userChar, userCharDiv, opponent, opponentDiv, roundOver;
 var winCounter = 0;
 var runAlerts = true;
 
@@ -138,6 +124,7 @@ function chooseOpponent() {
   $(".character").on("click", function() {
     opponent=characters[this.id];
     opponentDiv = this;
+    roundOver = false;
     $("#fight-container").append(this); // move to #fight-container
     $(this).css("border-color", "rgba(255, 0, 0, 0.5)");    
     $(".character").off();
@@ -150,13 +137,14 @@ function chooseOpponent() {
       <div id="fightAlert" class="alert alert-info alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         Finally, click the "Fight" button to attack your opponent!
-      </div>`);
+      </div>`); 
     }
   });
 }
 
 function defeatOpponent() {
-  winCounter++;
+  winCounter++; 
+  roundOver = true; // to prevent additional wins from clicking the button more times. chooseOpponent() will set it to false.
   if (winCounter === 4) {
     winGame();
   } else {
@@ -181,7 +169,9 @@ function winGame() {
 }
 
 function reset() {
+  $(".alert").alert("close");
   $("#card-container").append(userCharDiv, opponentDiv, $(".defeated"));
+  $(".character").removeClass("defeated");
   $(".character").css("border-color", "rgba(0, 0, 0, 0.5)");
   // reset .currentHealth amounts to .maxHealth:
   for (var char in characters) {
@@ -197,7 +187,9 @@ function reset() {
 }
 
 $("#fight-btn").click(function() {
-  if (!userChar) {
+  if (roundOver) {
+    return;
+  } else if (!userChar) {
     alert("First you must choose a character. \nClick on any character to play as him or her.");
     return;
   } else if (!opponent) {
@@ -215,7 +207,6 @@ $("#fight-btn").click(function() {
     loseGame();
   } else if (opponent.currentHealth < 1) {
     defeatOpponent();
-  } else {
   }
 });
 
