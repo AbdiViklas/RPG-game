@@ -17,7 +17,7 @@ var characters = {
     phrases: [
       "Allons-y!",
       "Run!",
-      "I'm sorry. I'm so sorry."
+      "Tell them this: IT IS DEFENDED!"
     ]
   },
   dalek: {
@@ -69,7 +69,7 @@ var characters = {
     idName: "silence",
     name: "the Silence",
     maxHealth: 60,
-    currentHealth: 6.,
+    currentHealth: 6, // nerfed for testing
     baseAttack: 7,
     currentAttack: 7,
     attacks: [
@@ -136,7 +136,7 @@ function chooseOpponent() {
 
 function loseGame() {
   $("#loseModal").modal();
-  reset();
+  $("#defeater").text(opponent.name);
 }
 
 // hard-code the number of antagonists (4), keep track of defeats with a counter, and determine win when counter === 4
