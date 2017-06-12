@@ -186,9 +186,8 @@ function reset() {
   // reset .currentHealth amounts to .maxHealth:
   for (var char in characters) {
     characters[char].currentHealth = characters[char].maxHealth;
+    characters[char].currentAttack = characters[char].baseAttack;
   }
-  // reset protagonist character attack to original level
-  userChar.currentAttack = userChar.baseAttack; //small problem: although this line appears to be executed before the writeStats line below, the console shows an error suggesting that userChar has already been set to undefined by the lines below
   $(".character").each(function (index) {
     writeStats(this);
   });
@@ -197,7 +196,7 @@ function reset() {
   chooseChar();
 }
 
-$("#fight").click(function() {
+$("#fight-btn").click(function() {
   if (!userChar) {
     alert("First you must choose a character. \nClick on any character to play as him or her.");
     return;
