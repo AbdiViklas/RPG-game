@@ -25,8 +25,8 @@ var characters = {
   dalek: {
     idName: "dalek",
     name: "a Dalek",
-    maxHealth: 60,
-    currentHealth: 60,
+    maxHealth: 70,
+    currentHealth: 70,
     baseAttack: 6,
     currentAttack: 6,
     attacks: [
@@ -42,8 +42,8 @@ var characters = {
   cyberman: {
     idName: "cyberman",
     name: "a Cyberman",
-    maxHealth: 50,
-    currentHealth: 50,
+    maxHealth: 65,
+    currentHealth: 65,
     baseAttack: 8,
     currentAttack: 8,
     attacks: [
@@ -58,8 +58,8 @@ var characters = {
   angel: {
     idName: "angel",
     name: "a Weeping Angel",
-    maxHealth: 60,
-    currentHealth: 60,
+    maxHealth: 70,
+    currentHealth: 70,
     baseAttack: 7,
     currentAttack: 7,
     attacks: [
@@ -200,6 +200,7 @@ function reset() {
 // to-do: hunt down why popovers "flash" on second instance, disappearing immediately after appearing
 
 $("#fight-btn").click(function() {
+  // checks for click at inappropriate times
   if ($(this).attr("disabled")) {
     return;
   } else if (!userChar) {
@@ -208,9 +209,11 @@ $("#fight-btn").click(function() {
   } else if (!opponent) {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
     return;
-  } 
+  }
+  // tidy up any stray alerts or popovers
   $(".alert").alert("close");
   $("*").popover("destroy");
+  // display alerts and popovers
   $("#fight").append(`
     <div id="charAttack" class="alert alert-warning alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -236,10 +239,10 @@ $("#fight-btn").click(function() {
   userChar.currentAttack += 5;
   writeStats(userCharDiv);
   writeStats(opponentDiv);
-  if (userChar.currentHealth < 1) {
-    loseGame();
-  } else if (opponent.currentHealth < 1) {
+  if (opponent.currentHealth < 1) {
     defeatOpponent();
+  } else if (userChar.currentHealth < 1) {
+    loseGame();
   }
 });
 
