@@ -163,7 +163,7 @@ function defeatOpponent() {
       </div>`);
     runAlerts = false; // You've got it from here
     $(opponentDiv).addClass("defeated"); // display: none, but it hasn't gone anywhere...
-    $("*").popover("destroy");
+    $("div[data-toggle='popover']").popover("destroy");
     chooseOpponent();
   }
 }
@@ -179,7 +179,7 @@ function winGame() {
 
 function reset() {
   $(".alert").alert("close");
-  $("*").popover("destroy");
+  $("div[data-toggle='popover']").popover("destroy");
   $("#card-container").append(userCharDiv, opponentDiv, $(".defeated"));
   $(".character").removeClass("defeated");
   $(".character").css("border-color", "rgba(0, 0, 0, 0.5)");
@@ -212,7 +212,7 @@ $("#fight-btn").click(function() {
   }
   // tidy up any stray alerts or popovers
   $(".alert").alert("close");
-  $("*").popover("destroy");
+  $("div[data-toggle='popover']").popover("destroy");
   // display alerts and popovers
   $("#fight").append(`
     <div id="charAttack" class="alert alert-warning alert-dismissible" role="alert">
