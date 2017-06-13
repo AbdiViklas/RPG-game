@@ -1,3 +1,5 @@
+// TO DO: balance so game is winable with any character
+
 // CHARACTER OBJECTS
 
 var characters = {
@@ -23,8 +25,8 @@ var characters = {
   dalek: {
     idName: "dalek",
     name: "a Dalek",
-    maxHealth: 30,
-    currentHealth: 30,
+    maxHealth: 40,
+    currentHealth: 40,
     baseAttack: 10,
     currentAttack: 10,
     attacks: [
@@ -70,7 +72,7 @@ var characters = {
     idName: "silence",
     name: "the Silence",
     maxHealth: 60,
-    currentHealth: 6, // nerfed for testing
+    currentHealth: 60,
     baseAttack: 7,
     currentAttack: 7,
     attacks: [
@@ -189,6 +191,7 @@ function reset() {
   $(".character").each(function (index) {
     writeStats(this);
   });
+  winCounter = 0;
   userChar = undefined;
   opponent = undefined;
   chooseChar();
