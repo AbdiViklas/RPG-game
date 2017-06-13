@@ -63,7 +63,8 @@ var characters = {
     attacks: [
       "touch",
       "move really really fast"
-    ]
+    ],
+    phrases: []
   },
   silence: {
     idName: "silence",
@@ -73,9 +74,10 @@ var characters = {
     baseAttack: 7,
     currentAttack: 7,
     attacks: [
-      "wait",
-      "tell off"
-    ]
+      "forget",
+      "zap"
+    ],
+    phrases: []
   }
 }
 
@@ -86,6 +88,10 @@ var winCounter = 0;
 var runAlerts = true;
 
 // FUNCTIONS
+
+function selectRandom(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
 
 function writeStats(div) {
   var objectName = div.id;
@@ -155,6 +161,7 @@ function defeatOpponent() {
       </div>`);
     runAlerts = false; // You've got it from here
     $(opponentDiv).addClass("defeated"); // display: none, but it hasn't gone anywhere...
+    $("*").popover("destroy");
     chooseOpponent();
   }
 }
@@ -170,6 +177,7 @@ function winGame() {
 
 function reset() {
   $(".alert").alert("close");
+  $("*").popover("destroy");
   $("#card-container").append(userCharDiv, opponentDiv, $(".defeated"));
   $(".character").removeClass("defeated");
   $(".character").css("border-color", "rgba(0, 0, 0, 0.5)");
@@ -186,6 +194,8 @@ function reset() {
   chooseChar();
 }
 
+// to-do: hunt down why popovers "flash" on second instance, disappearing immediately after appearing
+
 $("#fight-btn").click(function() {
   if ($(this).attr("disabled")) {
     return;
@@ -196,11 +206,31 @@ $("#fight-btn").click(function() {
     alert("First you must choose an opponent. \nClick on any character to fight him or her.");
     return;
   } 
-  $("#fightAlert").alert("close");
+  $(".alert").alert("close");
+  $("*").popover("destroy");
+  $("#fight").append(`
+    <div id="charAttack" class="alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      ${userChar.name} uses attack "${selectRandom(userChar.attacks)}" for ${userChar.currentAttack} damage!
+    </div>`);
+  $(userCharDiv).attr({
+    "data-toggle": "popover",
+    "data-placement": "top",
+    "data-content": selectRandom(userChar.phrases)});
+  $(userCharDiv).popover("show");
   opponent.currentHealth -= userChar.currentAttack;
+  $("#fight").append(`
+    <div id="opponentAttack" class="alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      ${opponent.name} uses attack "${selectRandom(opponent.attacks)}" for ${opponent.currentAttack} damage!
+    </div>`);
+  $(opponentDiv).attr({
+    "data-toggle": "popover",
+    "data-placement": "right",
+    "data-content": selectRandom(opponent.phrases)});
+  $(opponentDiv).popover("show");
   userChar.currentHealth -= opponent.baseAttack;
   userChar.currentAttack += 5;
-  // popover speech balloons with random phrase for both
   writeStats(userCharDiv);
   writeStats(opponentDiv);
   if (userChar.currentHealth < 1) {
