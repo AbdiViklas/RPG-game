@@ -14,19 +14,23 @@ body {
 
 .alert {
 	display: inline-block;
+	position: relative;
 	opacity: 0.8;
+	z-index: 10;
 }
 
 #card-container {
-	height: 175px;
-	/*max-height: 20vh; work later on responsive sizing */
+	height: 33.3vh;
+	max-height: 40vw;
 }
 
 .character {
 	display: inline-block;
 	position: relative;
-	width: 100px;
-	height: 150px;
+	width: 20vh;
+	height: 30vh;
+	max-width: 24vw;
+	max-height: 36vw;
 	/*max-height: 20vh;*/
 	/* work later on responsive sizing */
 	border: 3px solid rgba(0, 0, 0, 0.5);
@@ -79,7 +83,8 @@ body {
 }
 
 #fight-container {
-	height: 175px;
+	height: 33.3vh;
+	max-height: 40vw;
 }
 
 #fight-btn {
@@ -88,4 +93,11 @@ body {
 
 .defeated {
 	display: none;
+}
+
+/* Extra small devices (phones, up to 480px) */
+@media screen and (max-width: 767px) {
+	.stat {
+		font-size: 3vw;
+	}
 }
