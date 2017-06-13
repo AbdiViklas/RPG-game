@@ -25,10 +25,10 @@ var characters = {
   dalek: {
     idName: "dalek",
     name: "a Dalek",
-    maxHealth: 40,
-    currentHealth: 40,
-    baseAttack: 10,
-    currentAttack: 10,
+    maxHealth: 60,
+    currentHealth: 60,
+    baseAttack: 6,
+    currentAttack: 6,
     attacks: [
       "scream",
       "plunger",
@@ -58,10 +58,10 @@ var characters = {
   angel: {
     idName: "angel",
     name: "a Weeping Angel",
-    maxHealth: 40,
-    currentHealth: 40,
-    baseAttack: 5,
-    currentAttack: 5,
+    maxHealth: 60,
+    currentHealth: 60,
+    baseAttack: 7,
+    currentAttack: 7,
     attacks: [
       "touch",
       "move really really fast"
@@ -71,8 +71,8 @@ var characters = {
   silence: {
     idName: "silence",
     name: "the Silence",
-    maxHealth: 60,
-    currentHealth: 60,
+    maxHealth: 70,
+    currentHealth: 70,
     baseAttack: 7,
     currentAttack: 7,
     attacks: [
